@@ -1,0 +1,22 @@
+﻿@page "/"
+@using BlazorServerMassTransit.Features.Email
+@using MassTransit
+
+<PageTitle>Home</PageTitle>
+
+<p>@_test</p>
+
+<button @onclick="OnSubmitClicked">Test</button>
+
+@code {
+    [Inject] 
+    public IRequestClient<SubscribeToNewsletter> Client { get; set; } = default;
+    
+    private string _test = string.Empty;
+    
+    private async Task OnSubmitClicked()
+    {
+        var result = await Client.GetResponse<SubscribeToNewsletter>(new SubscribeToNewsletter("test@test.at"));
+    }
+
+}
